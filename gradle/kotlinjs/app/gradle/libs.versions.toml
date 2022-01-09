@@ -1,0 +1,15 @@
+[versions]
+detekt = "1.19.0"
+kotlin = "1.6.0"
+kotlinxHtml = "0.7.3"
+ktlint = "10.2.0"
+normalizeCss = "~8.0.0"
+
+[libraries]
+kotlinx-html = { module = "org.jetbrains.kotlinx:kotlinx-html-js", version.ref = "kotlinxHtml" }
+
+[plugins]
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+js = { id = "org.jetbrains.kotlin.js", version.ref = "kotlin" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
+ktlintIdea = { id = "org.jlleitschuh.gradle.ktlint-idea", version.ref = "ktlint" }
