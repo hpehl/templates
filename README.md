@@ -5,7 +5,7 @@ A collection of templates I collected over the years to get started quickly with
 - [Bash](bash/)
 - [Maven / Java](maven/java/)
 - Gradle
-    + [Kotlin/JS library][gradle/kotlinjs/lib]
+    + [Kotlin/JS library](gradle/kotlinjs/lib)
     + [Kotlin/JS application](gradle/kotlinjs/app) 
 
 Each template contains a README describing the template and how to get started.
