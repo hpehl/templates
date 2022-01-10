@@ -10,8 +10,12 @@ set -Eeuo pipefail
 trap cleanup SIGINT SIGTERM ERR EXIT
 
 VERSION=1.2.3
+
+# Change into the script's directory
+# Using relative paths is safe!
 script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
 readonly script_dir
+cd "${script_dir}"
 
 usage() {
   cat <<EOF
