@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-     Copyright 2021 Red Hat, Inc.
+     Copyright 2022 Red Hat
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -25,6 +25,11 @@
     <name>Name</name>
     <description>Description</description>
     <inceptionYear>2022</inceptionYear>
+
+    <organization>
+        <name>Red Hat</name>
+        <url>https://developers.redhat.com/</url>
+    </organization>
 
     <licenses>
         <license>
@@ -144,6 +149,7 @@
                         <header>etc/license.txt</header>
                         <strictCheck>true</strictCheck>
                         <aggregate>true</aggregate>
+                        <useDefaultExcludes>true</useDefaultExcludes>
                         <mapping>
                             <proto>JAVADOC_STYLE</proto>
                         </mapping>
