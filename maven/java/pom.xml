@@ -71,16 +71,6 @@
         <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.wildfly.checkstyle</groupId>
-                <artifactId>wildfly-checkstyle-config</artifactId>
-                <version>${version.org.wildfly.checkstyle-config}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <build>
         <pluginManagement>
             <plugins>
