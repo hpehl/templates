@@ -139,9 +139,6 @@
                         <strictCheck>true</strictCheck>
                         <aggregate>true</aggregate>
                         <useDefaultExcludes>true</useDefaultExcludes>
-                        <mapping>
-                            <proto>JAVADOC_STYLE</proto>
-                        </mapping>
                         <excludes>
                             <exclude>.sdkmanrc</exclude>
                             <exclude>LICENSE</exclude>

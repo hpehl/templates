@@ -21,7 +21,7 @@
         "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
 
 <suppressions>
-    <!-- Ignore files pulled down from zanata -->
-    <suppress files="LocalDescriptions_.+\.properties|.*\.i18n_.+\.properties" checks=".*"/>
-    <suppress files=".*/protobuf/.*" checks=".*"/>
+    <!-- Ignore generated sources -->
+    <suppress files=".*/generated-sources/.*" checks=".*"/>
+    <suppress files=".*/generated-test-sources/.*" checks=".*"/>
 </suppressions>
