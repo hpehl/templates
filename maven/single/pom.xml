@@ -19,6 +19,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.jboss</groupId>
+        <artifactId>jboss-parent</artifactId>
+        <version>39</version>
+    </parent>
+
     <groupId>org.acme</groupId>
     <artifactId>lib</artifactId>
     <version>0.0.1</version>
@@ -48,14 +54,15 @@
 
     <properties>
         <!-- Dependency versions -->
-        <version.org.wildfly.checkstyle-config>1.0.8.Final</version.org.wildfly.checkstyle-config>
+        <version.checkstyle.config>1.0.8.Final</version.checkstyle.config>
 
         <!-- Plugin versions -->
         <version.checkstyle.plugin>3.1.1</version.checkstyle.plugin>
         <version.enforcer.plugin>3.0.0-M3</version.enforcer.plugin>
-        <version.com.mycila.license-plugin>4.1</version.com.mycila.license-plugin>
-        <version.net.revelc.formatter-plugin>2.17.0</version.net.revelc.formatter-plugin>
-        <version.net.revelc.impsort-plugin>1.6.2</version.net.revelc.impsort-plugin>
+        <version.formatter.plugin>2.17.0</version.formatter.plugin>
+        <version.impsort.plugin>1.6.2</version.impsort.plugin>
+        <version.license.plugin>4.1</version.license.plugin>
+        <version.nexus.staging.plugin>1.6.8</version.nexus.staging.plugin>
 
         <!-- Repos, URLs & protocols -->
         <repo.scm.connection>git@github.com:acme/lib.git</repo.scm.connection>
@@ -77,23 +84,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>${version.checkstyle.plugin}</version>
-                    <executions>
-                        <execution>
-                            <id>check-style</id>
-                            <phase>compile</phase>
-                            <goals>
-                                <goal>checkstyle</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.wildfly.checkstyle</groupId>
-                            <artifactId>wildfly-checkstyle-config</artifactId>
-                            <version>${version.org.wildfly.checkstyle-config}</version>
-                        </dependency>
-                    </dependencies>
                     <configuration>
                         <configLocation>wildfly-checkstyle/checkstyle.xml</configLocation>
                         <consoleOutput>true</consoleOutput>
@@ -103,15 +93,23 @@
                         <suppressionsLocation>etc/checkstyle-suppressions.xml</suppressionsLocation>
                         <useFile/>
                     </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.wildfly.checkstyle</groupId>
+                            <artifactId>wildfly-checkstyle-config</artifactId>
+                            <version>${version.checkstyle.config}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>${version.enforcer.plugin}</version>
                     <configuration>
                         <rules>
                             <bannedRepositories>
-                                <message>To build this project, don't use maven repositories over HTTP. Please use HTTPS in your settings.xml or run the build with property insecure.repositories=WARN</message>
+                                <message>To build this project, don't use maven repositories over HTTP. Please use HTTPS
+                                    in your settings.xml or run the build with property insecure.repositories=WARN
+                                </message>
                                 <level>ERROR</level>
                                 <bannedRepositories>
                                     <bannedRepository>http://*</bannedRepository>
@@ -121,11 +119,15 @@
                                 </bannedPluginRepositories>
                             </bannedRepositories>
                             <requireMavenVersion>
-                                <message>To build this project Maven ${maven.min.version} (or greater) is required. Please install it.</message>
+                                <message>To build this project Maven ${maven.min.version} (or greater) is required.
+                                    Please install it.
+                                </message>
                                 <version>${maven.min.version}</version>
                             </requireMavenVersion>
                             <requireJavaVersion>
-                                <message>To build this project JDK ${maven.compiler.source} (or greater) is required. Please install it.</message>
+                                <message>To build this project JDK ${maven.compiler.source} (or greater) is required.
+                                    Please install it.
+                                </message>
                                 <version>${maven.compiler.source}</version>
                             </requireJavaVersion>
                         </rules>
@@ -134,7 +136,7 @@
                 <plugin>
                     <groupId>com.mycila</groupId>
                     <artifactId>license-maven-plugin</artifactId>
-                    <version>${version.com.mycila.license-plugin}</version>
+                    <version>${version.license.plugin}</version>
                     <configuration>
                         <header>etc/license.txt</header>
                         <strictCheck>true</strictCheck>
@@ -144,6 +146,7 @@
                             <proto>JAVADOC_STYLE</proto>
                         </mapping>
                         <excludes>
+                            <exclude>.sdkmanrc</exclude>
                             <exclude>LICENSE</exclude>
                             <exclude>**/*license*.txt</exclude>
                         </excludes>
@@ -152,8 +155,7 @@
                 <plugin>
                     <groupId>net.revelc.code.formatter</groupId>
                     <artifactId>formatter-maven-plugin</artifactId>
-                    <version>${version.net.revelc.formatter-plugin}</version>
-                    <inherited>false</inherited>
+                    <version>${version.formatter.plugin}</version>
                     <configuration>
                         <configFile>etc/eclipse-formatter-config.xml</configFile>
                     </configuration>
@@ -161,7 +163,7 @@
                 <plugin>
                     <groupId>net.revelc.code</groupId>
                     <artifactId>impsort-maven-plugin</artifactId>
-                    <version>${version.net.revelc.impsort-plugin}</version>
+                    <version>${version.impsort.plugin}</version>
                     <configuration>
                         <groups>java.,javax.,org.,io.,com.</groups>
                         <removeUnused>true</removeUnused>
@@ -174,22 +176,26 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
+                <artifactId>maven-enforcer-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>enforcer-enforce</id>
+                        <phase>initialize</phase>
                         <goals>
-                            <goal>checkstyle</goal>
+                            <goal>enforce</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>checkstyle-check</id>
+                        <phase>verify</phase>
                         <goals>
-                            <goal>enforce</goal>
+                            <goal>check</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -199,6 +205,15 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>license-format</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>license-check</id>
+                        <phase>verify</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
@@ -210,9 +225,17 @@
                 <artifactId>formatter-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>format</id>
+                        <id>formatter-format</id>
+                        <phase>process-sources</phase>
                         <goals>
                             <goal>format</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>formatter-check</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>validate</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -222,13 +245,88 @@
                 <artifactId>impsort-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>sort-imports</id>
+                        <id>impsort-sort</id>
+                        <phase>process-sources</phase>
                         <goals>
                             <goal>sort</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>impsort-check</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <additionalOptions>
+                                <additionalOption>-html5</additionalOption>
+                            </additionalOptions>
+                            <detectLinks>true</detectLinks>
+                            <doclint>none</doclint>
+                            <failOnError>false</failOnError>
+                            <show>public</show>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>${version.nexus.staging.plugin}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
