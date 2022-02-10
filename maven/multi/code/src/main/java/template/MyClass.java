@@ -13,11 +13,17 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.acme.sample;
+package template;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MyClass {
 
+    private static final Logger logger = LoggerFactory.getLogger(MyClass.class);
+
     public void method() {
+        logger.info("This is where it all begins");
         // Do something great!
     }
 }

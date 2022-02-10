@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"template","c":"MyClass","l":"method()"},{"p":"template","c":"MyClass","l":"MyClass()","url":"%3Cinit%3E()"}]

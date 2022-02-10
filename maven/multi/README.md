@@ -1,15 +1,16 @@
-# Maven Single Module Template
+# Maven Multi Java Template
 
-Template for a single module project using Maven 3.2.x and Java 11+.
+Template for a multi module project in Java using Maven 3.2.x and Java 11+.
 
 ## Features
 
 - [Maven Wrapper](https://maven.apache.org/wrapper/)
 - Inherits from [JBoss Parent POM](https://github.com/jboss/jboss-parent-pom)
+- Parent POM, parent code POM, BOM and code/impl module
 - [WildFly](https://github.com/wildfly/wildfly-checkstyle-config) [checkstyle](https://checkstyle.sourceforge.io/) configuration
-- [Maven Enforcer Plugin](https://maven.apache.org/enforcer/maven-enforcer-plugin/) with rules enforcing 
+- [Maven Enforcer Plugin](https://maven.apache.org/enforcer/maven-enforcer-plugin/) with rules enforcing
   - secure repositories over HTTPS
-  - Java >=11 
+  - Java >=11
   - Maven >= 3.2.5
 - [Maven License Plugin](https://mycila.carbou.me/license-maven-plugin/)
 - [Maven Formatter Plugin](https://code.revelc.net/formatter-maven-plugin/)
@@ -21,7 +22,7 @@ Template for a single module project using Maven 3.2.x and Java 11+.
 ## Get Started
 
 1. Clone or copy repo
-2. Adjust Maven coordinates in `pom.xml`
+2. Adjust Maven coordinates in `pom.xml` files
 3. Adjust `repo.scm.connection` and `repo.scm.url` in `pom.xml`
 6. Adjust or remove unnecessary plugins / configuration in `pom.xml`
 5. Add dependencies, code and tests
@@ -38,7 +39,7 @@ Formats the codebase by applying the following maven goals:
 - [`formatter-maven-plugin:format`](https://code.revelc.net/formatter-maven-plugin/format-mojo.html)
 - [`impsort-maven-plugin:sort`](https://code.revelc.net/impsort-maven-plugin/sort-mojo.html)
 
-The goals use the plugin configuration in [pom.xml](pom.xml#L159) and the resources in [etc](etc).
+The goals use the plugin configuration in [code-parent/pom.xml](code-parent/pom.xml#L84) and the resources in [build-config/src/main/resources/etc](config/src/main/resources/manatoko).  
 
 ### `validate.sh`
 
@@ -50,4 +51,4 @@ Validates the codebase by applying the following maven goals:
 - [`formatter-maven-plugin:validate`](https://code.revelc.net/formatter-maven-plugin/validate-mojo.html)
 - [`impsort-maven-plugin:check`](https://code.revelc.net/impsort-maven-plugin/check-mojo.html)
 
-The goals use the plugin configuration in [pom.xml](pom.xml#L159) and the resources in [etc](etc).
+The goals use the plugin configuration in [code-parent/pom.xml](code-parent/pom.xml#L84) and the resources in [build-config/src/main/resources/etc](config/src/main/resources/manatoko).  

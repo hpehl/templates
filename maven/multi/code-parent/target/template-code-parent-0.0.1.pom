@@ -16,74 +16,33 @@
      limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.jboss</groupId>
-        <artifactId>jboss-parent</artifactId>
-        <version>39</version>
+        <groupId>org.acme</groupId>
+        <artifactId>template-parent</artifactId>
+        <version>0.0.1</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.acme</groupId>
-    <artifactId>template</artifactId>
-    <version>0.0.1</version>
-    <name>Template</name>
-    <description>Description</description>
-    <inceptionYear>2022</inceptionYear>
-
-    <organization>
-        <name>Red Hat</name>
-        <url>https://developers.redhat.com/</url>
-    </organization>
-
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <scm>
-        <connection>scm:git:${repo.scm.connection}</connection>
-        <developerConnection>scm:git:${repo.scm.connection}</developerConnection>
-        <url>${repo.scm.url}</url>
-        <tag>HEAD</tag>
-    </scm>
-
-    <properties>
-        <!-- Dependency versions -->
-        <version.checkstyle.config>1.0.8.Final</version.checkstyle.config>
-        <version.eclipse.collections>11.0.0</version.eclipse.collections>
-        <version.junit>5.8.2</version.junit>
-        <version.logback>1.3.0-alpha13</version.logback>
-        <version.slf4j>2.0.0-alpha6</version.slf4j>
-
-        <!-- Plugin versions -->
-        <version.checkstyle.plugin>3.1.1</version.checkstyle.plugin>
-        <version.enforcer.plugin>3.0.0-M3</version.enforcer.plugin>
-        <version.formatter.plugin>2.17.0</version.formatter.plugin>
-        <version.impsort.plugin>1.6.2</version.impsort.plugin>
-        <version.license.plugin>4.1</version.license.plugin>
-        <version.nexus.staging.plugin>1.6.8</version.nexus.staging.plugin>
-
-        <!-- Repos, URLs & protocols -->
-        <repo.scm.connection>git@github.com:acme/lib.git</repo.scm.connection>
-        <repo.scm.url>https://github.com/acme/lib</repo.scm.url>
-
-        <!-- Build related -->
-        <encoding>UTF-8</encoding>
-        <java.version>11</java.version>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
-        <maven.min.version>3.2.5</maven.min.version>
-        <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
-    </properties>
+    <artifactId>template-code-parent</artifactId>
+    <packaging>pom</packaging>
+    <name>Template :: Code :: Parent</name>
+    <description>Parent for modules with code. Contains dependencies and plugin management</description>
 
     <dependencyManagement>
         <dependencies>
+            <!-- Template -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>template-bom</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <!-- Eclipse Collections -->
             <dependency>
                 <groupId>org.eclipse.collections</groupId>
@@ -119,40 +78,6 @@
         </dependencies>
     </dependencyManagement>
 
-    <dependencies>
-        <!-- Eclipse Collections -->
-        <dependency>
-            <groupId>org.eclipse.collections</groupId>
-            <artifactId>eclipse-collections-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.collections</groupId>
-            <artifactId>eclipse-collections</artifactId>
-        </dependency>
-
-        <!-- Logging -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-        </dependency>
-
-        <!-- JUnit -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
     <build>
         <pluginManagement>
             <plugins>
@@ -170,6 +95,11 @@
                     </configuration>
                     <dependencies>
                         <dependency>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>template-build-config</artifactId>
+                            <version>${project.version}</version>
+                        </dependency>
+                        <dependency>
                             <groupId>org.wildfly.checkstyle</groupId>
                             <artifactId>wildfly-checkstyle-config</artifactId>
                             <version>${version.checkstyle.config}</version>
@@ -177,55 +107,18 @@
                     </dependencies>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                    <configuration>
-                        <rules>
-                            <bannedRepositories>
-                                <message>To build this project, don't use maven repositories over HTTP. Please use HTTPS
-                                    in your settings.xml or run the build with property insecure.repositories=WARN
-                                </message>
-                                <level>ERROR</level>
-                                <bannedRepositories>
-                                    <bannedRepository>http://*</bannedRepository>
-                                </bannedRepositories>
-                                <bannedPluginRepositories>
-                                    <bannedPluginRepository>http://*</bannedPluginRepository>
-                                </bannedPluginRepositories>
-                            </bannedRepositories>
-                            <requireMavenVersion>
-                                <message>To build this project Maven ${maven.min.version} (or greater) is required.
-                                    Please install it.
-                                </message>
-                                <version>${maven.min.version}</version>
-                            </requireMavenVersion>
-                            <requireJavaVersion>
-                                <message>To build this project JDK ${maven.compiler.source} (or greater) is required.
-                                    Please install it.
-                                </message>
-                                <version>${maven.compiler.source}</version>
-                            </requireJavaVersion>
-                        </rules>
-                    </configuration>
-                </plugin>
-                <plugin>
                     <groupId>com.mycila</groupId>
                     <artifactId>license-maven-plugin</artifactId>
-                    <version>${version.license.plugin}</version>
                     <configuration>
                         <header>etc/license.txt</header>
-                        <strictCheck>true</strictCheck>
-                        <aggregate>true</aggregate>
-                        <useDefaultExcludes>true</useDefaultExcludes>
-                        <mapping>
-                            <proto>JAVADOC_STYLE</proto>
-                        </mapping>
-                        <excludes>
-                            <exclude>.sdkmanrc</exclude>
-                            <exclude>LICENSE</exclude>
-                            <exclude>**/*license*.txt</exclude>
-                        </excludes>
                     </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>template-build-config</artifactId>
+                            <version>${project.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>net.revelc.code.formatter</groupId>
@@ -234,6 +127,13 @@
                     <configuration>
                         <configFile>etc/eclipse-formatter-config.xml</configFile>
                     </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>template-build-config</artifactId>
+                            <version>${project.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>net.revelc.code</groupId>
@@ -251,43 +151,10 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>enforcer-enforce</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <executions>
                     <execution>
                         <id>checkstyle-check</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.mycila</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>license-format</id>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>format</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>license-check</id>
                         <phase>verify</phase>
                         <goals>
                             <goal>check</goal>
