@@ -1,4 +1,5 @@
-#Thu Feb 10 12:10:50 CET 2022
+#Thu Feb 10 12:23:01 CET 2022
 configuration*?=B58C777E124CF4FC4D6E2216FDC060129BB68EF2
 module-resource*?\:/wildfly-checkstyle/suppressions.xml=DD3FD5987C62C3034A4613F83C42B24683BCFC2E
+/Users/hpehl/dev/templates/maven/multi/code/src/test/java/template/MyClassTest.java=1644492170896
 /Users/hpehl/dev/templates/maven/multi/code/src/main/java/template/MyClass.java=1644491195970

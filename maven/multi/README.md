@@ -1,12 +1,17 @@
-# Maven Multi Java Template
+# Maven Multi Module Template
 
-Template for a multi module project in Java using Maven 3.2.x and Java 11+.
+Template for a multi module project using Maven 3.2.x and Java 11+.
 
 ## Features
 
 - [Maven Wrapper](https://maven.apache.org/wrapper/)
 - Inherits from [JBoss Parent POM](https://github.com/jboss/jboss-parent-pom)
-- Parent POM, parent code POM, BOM and code/impl module
+- Multi module:
+  - Parent POM with basic info, properties and minimal plugin definitions
+  - Build config containing checkstyle rules, formatter definition and license template
+  - BOM declaring project dependencies
+  - Parent code module with dependency and plugin management  
+  - Code module with some dummy code
 - [WildFly](https://github.com/wildfly/wildfly-checkstyle-config) [checkstyle](https://checkstyle.sourceforge.io/) configuration
 - [Maven Enforcer Plugin](https://maven.apache.org/enforcer/maven-enforcer-plugin/) with rules enforcing
   - secure repositories over HTTPS
@@ -17,6 +22,7 @@ Template for a multi module project in Java using Maven 3.2.x and Java 11+.
 - [Maven ImpSort Plugin](https://code.revelc.net/impsort-maven-plugin/)
 - Sample dependencies ([Eclipse Collections](https://www.eclipse.org/collections/) and [JUnit 5][https://junit.org/junit5/])
 - [SLF4J](https://www.slf4j.org/) and [Logback](https://logback.qos.ch/) support
+- Empty JUnit 5 unit test
 - Release profile which generates and signs source and JavaDoc JARs
 
 ## Get Started
