@@ -36,7 +36,7 @@ Formats the codebase by applying the following maven goals:
 - [`formatter-maven-plugin:format`](https://code.revelc.net/formatter-maven-plugin/format-mojo.html)
 - [`impsort-maven-plugin:sort`](https://code.revelc.net/impsort-maven-plugin/sort-mojo.html)
 
-The goals use the plugin configuration in [pom.xml](pom.xml#L75) and the resources in [etc](etc).
+The goals use the plugin configuration in [pom.xml](pom.xml#L82) and the resources in [etc](etc).
 
 ### `validate.sh`
 
@@ -48,4 +48,4 @@ Validates the codebase by applying the following maven goals:
 - [`formatter-maven-plugin:validate`](https://code.revelc.net/formatter-maven-plugin/validate-mojo.html)
 - [`impsort-maven-plugin:check`](https://code.revelc.net/impsort-maven-plugin/check-mojo.html)
 
-The goals use the plugin configuration in [pom.xml](pom.xml#L75) and the resources in [etc](etc).
+The goals use the plugin configuration in [pom.xml](pom.xml#L82) and the resources in [etc](etc).
