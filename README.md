@@ -2,8 +2,10 @@
 
 A collection of templates I've collected over the years to get started quickly. 
 
-- [Bash](bash/)
-- [Maven / Java](maven/java/)
+- [Bash](bash)
+- Maven
+    + [Single / Java](maven/single)
+    + [Multi / Java](maven/multi)
 - Gradle
     + [Kotlin/JS library](gradle/kotlinjs/lib)
     + [Kotlin/JS application](gradle/kotlinjs/app) 
