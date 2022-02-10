@@ -14,7 +14,7 @@ Template for a single module project using Maven 3.2.x and Java 11+.
 - [Maven License Plugin](https://mycila.carbou.me/license-maven-plugin/)
 - [Maven Formatter Plugin](https://code.revelc.net/formatter-maven-plugin/)
 - [Maven ImpSort Plugin](https://code.revelc.net/impsort-maven-plugin/)
-- Sample dependencies ([Eclipse Collections](https://www.eclipse.org/collections/) and [JUnit 5][https://junit.org/junit5/])
+- Sample dependencies ([Eclipse Collections](https://www.eclipse.org/collections/) and [JUnit 5](https://junit.org/junit5/)
 - [SLF4J](https://www.slf4j.org/) and [Logback](https://logback.qos.ch/) support
 - Empty JUnit 5 unit test
 - Release profile which generates and signs source and JavaDoc JARs
