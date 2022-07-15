@@ -101,13 +101,13 @@
         <module>code-parent</module>
     </modules>
 
-    <!-- No dependencies! Dependencies are managed in core-parent -->
+    <!-- No dependencies! Dependencies are managed in code-parent -->
     <dependencies/>
 
     <build>
         <!--
             All plugins are declared and (partly) configured here.
-            Some of them are redefined in core-parent
+            Some of them are redefined in code-parent
         -->
         <pluginManagement>
             <plugins>
